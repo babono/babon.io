@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import AnimatedLogo from './AnimatedLogo';
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -21,8 +22,8 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link href="/" className="text-xl font-bold" style={{ color: '#0182C6' }}>
-              Babon.io
+            <Link href="/" className="flex items-center">
+              <AnimatedLogo />
             </Link>
           </div>
 
@@ -38,7 +39,7 @@ export default function Navigation() {
                     : 'hover:opacity-80'
                 }`}
                 style={{
-                  backgroundColor: pathname === item.href ? '#0182C6' : 'transparent',
+                  backgroundColor: pathname === item.href ? '#0B72FE' : 'transparent',
                   color: pathname === item.href ? 'white' : '#252525'
                 }}
               >
@@ -52,7 +53,7 @@ export default function Navigation() {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="hover:opacity-80"
-              style={{ color: '#252525' }}
+              style={{ color: '#000000' }}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>

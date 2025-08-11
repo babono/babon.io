@@ -20,14 +20,14 @@ export default function Home() {
               />
             </div>
             
-            <h1 className="text-4xl sm:text-6xl font-bold mb-6" style={{ color: '#252525' }}>
+            <h1 className="text-4xl sm:text-6xl font-semibold mb-6" style={{ color: '#000000' }}>
               Hi, I&apos;m{" "}
-              <span style={{ color: '#0182C6' }}>
-                Your Name
+              <span style={{ color: '#0B72FE' }}>
+                Babono
               </span>
             </h1>
             
-            <p className="text-xl sm:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed" style={{ color: '#252525' }}>
+            <p className="text-xl sm:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed" style={{ color: '#000000' }}>
               A passionate full-stack developer creating innovative solutions 
               and building exceptional digital experiences. I love turning 
               complex problems into simple, beautiful, and intuitive designs.
@@ -35,9 +35,9 @@ export default function Home() {
 
             <div className="flex justify-center gap-6 mb-12">
               <Link
-                href="mailto:your-email@example.com"
+                href="mailto:babono@hotmail.com"
                 className="inline-flex items-center gap-2 px-6 py-3 text-white rounded-lg hover:opacity-90 transition-all font-medium"
-                style={{ backgroundColor: '#0182C6' }}
+                style={{ backgroundColor: '#0B72FE' }}
               >
                 <Mail size={20} />
                 Get in touch
@@ -47,8 +47,8 @@ export default function Home() {
                 href="/resume"
                 className="inline-flex items-center gap-2 px-6 py-3 border rounded-lg hover:opacity-80 transition-all font-medium"
                 style={{ 
-                  borderColor: '#0182C6', 
-                  color: '#0182C6',
+                  borderColor: '#0B72FE', 
+                  color: '#0B72FE',
                   backgroundColor: 'white'
                 }}
               >
@@ -59,34 +59,25 @@ export default function Home() {
             {/* Social Links */}
             <div className="flex justify-center gap-6">
               <Link
-                href="https://github.com/yourusername"
+                href="https://github.com/babono"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 hover:opacity-80 transition-all hover:bg-gray-50 rounded-full"
-                style={{ color: '#252525' }}
+                style={{ color: '#000000' }}
               >
                 <Github size={24} />
               </Link>
               
               <Link
-                href="https://linkedin.com/in/yourusername"
+                href="https://www.linkedin.com/in/babono/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 hover:opacity-80 transition-all hover:bg-gray-50 rounded-full"
-                style={{ color: '#252525' }}
+                style={{ color: '#000000' }}
               >
                 <Linkedin size={24} />
               </Link>
               
-              <Link
-                href="https://twitter.com/yourusername"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 hover:opacity-80 transition-all hover:bg-gray-50 rounded-full"
-                style={{ color: '#252525' }}
-              >
-                <Twitter size={24} />
-              </Link>
             </div>
           </div>
 
@@ -97,11 +88,11 @@ export default function Home() {
               className="group p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200"
             >
               <h3 className="text-xl font-semibold mb-3 transition-colors" style={{ 
-                color: '#252525' 
+                color: '#000000' 
               }}>
                 <span className="group-hover:opacity-80">Featured Projects</span>
               </h3>
-              <p style={{ color: '#252525', opacity: 0.8 }}>
+              <p style={{ color: '#000000', opacity: 0.8 }}>
                 Explore my latest work and side projects, built with modern technologies
               </p>
             </Link>
@@ -111,11 +102,11 @@ export default function Home() {
               className="group p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200"
             >
               <h3 className="text-xl font-semibold mb-3 transition-colors" style={{ 
-                color: '#252525' 
+                color: '#000000' 
               }}>
                 <span className="group-hover:opacity-80">Latest Posts</span>
               </h3>
-              <p style={{ color: '#252525', opacity: 0.8 }}>
+              <p style={{ color: '#000000', opacity: 0.8 }}>
                 Read my thoughts on development, technology, and industry trends
               </p>
             </Link>
@@ -125,11 +116,11 @@ export default function Home() {
               className="group p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200"
             >
               <h3 className="text-xl font-semibold mb-3 transition-colors" style={{ 
-                color: '#252525' 
+                color: '#000000' 
               }}>
                 <span className="group-hover:opacity-80">Experience</span>
               </h3>
-              <p style={{ color: '#252525', opacity: 0.8 }}>
+              <p style={{ color: '#000000', opacity: 0.8 }}>
                 Learn about my professional background and technical skills
               </p>
             </Link>
