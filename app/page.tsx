@@ -1,103 +1,244 @@
 import Image from "next/image";
+import Link from "next/link";
+import { Github, Linkedin, Mail, Twitter } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-white relative">
+      <div className="container mx-auto px-4 py-16 sm:py-24 relative z-10">
+        <div className="max-w-4xl mx-auto">
+          {/* Hero Section */}
+          <div className="text-center mb-16">
+            <div className="mb-8">
+              <Image
+                src="/profile.jpg" // You'll need to add your profile photo
+                alt="Profile photo"
+                width={200}
+                height={200}
+                className="rounded-full mx-auto shadow-xl"
+                priority
+              />
+            </div>
+            
+            <h1 className="text-4xl sm:text-6xl font-bold mb-6" style={{ color: '#252525' }}>
+              Hi, I'm{" "}
+              <span style={{ color: '#0182C6' }}>
+                Your Name
+              </span>
+            </h1>
+            
+            <p className="text-xl sm:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed" style={{ color: '#252525' }}>
+              A passionate full-stack developer creating innovative solutions 
+              and building exceptional digital experiences. I love turning 
+              complex problems into simple, beautiful, and intuitive designs.
+            </p>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <div className="flex justify-center gap-6 mb-12">
+              <Link
+                href="mailto:your-email@example.com"
+                className="inline-flex items-center gap-2 px-6 py-3 text-white rounded-lg hover:opacity-90 transition-all font-medium"
+                style={{ backgroundColor: '#0182C6' }}
+              >
+                <Mail size={20} />
+                Get in touch
+              </Link>
+              
+              <Link
+                href="/resume"
+                className="inline-flex items-center gap-2 px-6 py-3 border rounded-lg hover:opacity-80 transition-all font-medium"
+                style={{ 
+                  borderColor: '#0182C6', 
+                  color: '#0182C6',
+                  backgroundColor: 'white'
+                }}
+              >
+                View Resume
+              </Link>
+            </div>
+
+            {/* Social Links */}
+            <div className="flex justify-center gap-6">
+              <Link
+                href="https://github.com/yourusername"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 hover:opacity-80 transition-all hover:bg-gray-50 rounded-full"
+                style={{ color: '#252525' }}
+              >
+                <Github size={24} />
+              </Link>
+              
+              <Link
+                href="https://linkedin.com/in/yourusername"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 hover:opacity-80 transition-all hover:bg-gray-50 rounded-full"
+                style={{ color: '#252525' }}
+              >
+                <Linkedin size={24} />
+              </Link>
+              
+              <Link
+                href="https://twitter.com/yourusername"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 hover:opacity-80 transition-all hover:bg-gray-50 rounded-full"
+                style={{ color: '#252525' }}
+              >
+                <Twitter size={24} />
+              </Link>
+            </div>
+          </div>
+
+          {/* Quick Links Section */}
+          <div className="grid md:grid-cols-3 gap-8 mb-32">
+            <Link
+              href="/projects"
+              className="group p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200"
+            >
+              <h3 className="text-xl font-semibold mb-3 transition-colors" style={{ 
+                color: '#252525' 
+              }}>
+                <span className="group-hover:opacity-80">Featured Projects</span>
+              </h3>
+              <p style={{ color: '#252525', opacity: 0.8 }}>
+                Explore my latest work and side projects, built with modern technologies
+              </p>
+            </Link>
+
+            <Link
+              href="/blog"
+              className="group p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200"
+            >
+              <h3 className="text-xl font-semibold mb-3 transition-colors" style={{ 
+                color: '#252525' 
+              }}>
+                <span className="group-hover:opacity-80">Latest Posts</span>
+              </h3>
+              <p style={{ color: '#252525', opacity: 0.8 }}>
+                Read my thoughts on development, technology, and industry trends
+              </p>
+            </Link>
+
+            <Link
+              href="/resume"
+              className="group p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200"
+            >
+              <h3 className="text-xl font-semibold mb-3 transition-colors" style={{ 
+                color: '#252525' 
+              }}>
+                <span className="group-hover:opacity-80">Experience</span>
+              </h3>
+              <p style={{ color: '#252525', opacity: 0.8 }}>
+                Learn about my professional background and technical skills
+              </p>
+            </Link>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+
+      {/* Animated Waves */}
+      <div className="absolute bottom-0 left-0 w-full h-80 overflow-hidden">
+        {/* Wave 1 - Black (#000000) - Moving Left */}
+        <div className="absolute bottom-0 w-full wave-1">
+          <svg
+            className="absolute bottom-0 w-full"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,60 C100,45 200,30 300,45 C400,60 500,75 600,60 C700,45 800,30 900,45 C1000,60 1100,75 1200,60 L1200,120 L0,120 Z"
+              fill="#000000"
+            />
+          </svg>
+          <svg
+            className="absolute bottom-0 w-full"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+            style={{ left: 'calc(100% - 1px)' }}
+          >
+            <path
+              d="M0,60 C100,45 200,30 300,45 C400,60 500,75 600,60 C700,45 800,30 900,45 C1000,60 1100,75 1200,60 L1200,120 L0,120 Z"
+              fill="#000000"
+            />
+          </svg>
+        </div>
+
+        {/* Wave 2 - Blue (#0B72FE) - Moving Right */}
+        <div className="absolute bottom-0 w-full wave-2">
+          <svg
+            className="absolute bottom-0 w-full"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,40 C100,25 200,10 300,25 C400,40 500,55 600,40 C700,25 800,10 900,25 C1000,40 1100,55 1200,40 L1200,120 L0,120 Z"
+              fill="#0B72FE"
+            />
+          </svg>
+          <svg
+            className="absolute bottom-0 w-full"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+            style={{ left: 'calc(100% - 1px)' }}
+          >
+            <path
+              d="M0,40 C100,25 200,10 300,25 C400,40 500,55 600,40 C700,25 800,10 900,25 C1000,40 1100,55 1200,40 L1200,120 L0,120 Z"
+              fill="#0B72FE"
+            />
+          </svg>
+        </div>
+
+        {/* Wave 3 - Yellow (#FFCC01) - Moving Left */}
+        <div className="absolute bottom-0 w-full wave-3">
+          <svg
+            className="absolute bottom-0 w-full"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,50 C100,35 200,20 300,35 C400,50 500,65 600,50 C700,35 800,20 900,35 C1000,50 1100,65 1200,50 L1200,120 L0,120 Z"
+              fill="#FFCC01"
+            />
+          </svg>
+          <svg
+            className="absolute bottom-0 w-full"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+            style={{ left: 'calc(100% - 1px)' }}
+          >
+            <path
+              d="M0,50 C100,35 200,20 300,35 C400,50 500,65 600,50 C700,35 800,20 900,35 C1000,50 1100,65 1200,50 L1200,120 L0,120 Z"
+              fill="#FFCC01"
+            />
+          </svg>
+        </div>
+
+        {/* Wave 4 - Orange (#FF6D00) - Moving Right */}
+        <div className="absolute bottom-0 w-full wave-4">
+          <svg
+            className="absolute bottom-0 w-full"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,30 C100,45 200,60 300,45 C400,30 500,15 600,30 C700,45 800,60 900,45 C1000,30 1100,15 1200,30 L1200,120 L0,120 Z"
+              fill="#FF6D00"
+            />
+          </svg>
+          <svg
+            className="absolute bottom-0 w-full"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+            style={{ left: 'calc(100% - 1px)' }}
+          >
+            <path
+              d="M0,30 C100,45 200,60 300,45 C400,30 500,15 600,30 C700,45 800,60 900,45 C1000,30 1100,15 1200,30 L1200,120 L0,120 Z"
+              fill="#FF6D00"
+            />
+          </svg>
+        </div>
+      </div>
     </div>
   );
 }

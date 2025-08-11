@@ -2,25 +2,112 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --foreground: #252525;
+  --primary: #0182C6;
+  --secondary: #ED4D2D;
+  --accent: #FED900;
+  --dark: #252525;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-open-sans), "Open Sans", system-ui, -apple-system, sans-serif;
+}
+
+/* Wave Animations */
+.wave-1 {
+  height: 200px;
+  z-index: 4;
+  animation: waveLeftFloat 40s linear infinite;
+}
+
+.wave-2 {
+  height: 160px;
+  z-index: 3;
+  animation: waveRightFloat 30s linear infinite;
+}
+
+.wave-3 {
+  height: 120px;
+  z-index: 2;
+  animation: waveLeftFloat2 20s linear infinite;
+}
+
+.wave-4 {
+  height: 80px;
+  z-index: 1;
+  animation: waveRightFloat2 15s linear infinite;
+}
+
+@keyframes waveLeftFloat {
+  0% {
+    transform: translateX(0) translateY(18px);
+  }
+  25% {
+    transform: translateX(-25%) translateY(35px);
+  }
+  50% {
+    transform: translateX(-50%) translateY(43px);
+  }
+  75% {
+    transform: translateX(-75%) translateY(28px);
+  }
+  100% {
+    transform: translateX(-100%) translateY(18px);
+  }
+}
+
+@keyframes waveRightFloat {
+  0% {
+    transform: translateX(-100%) translateY(0px);
+  }
+  25% {
+    transform: translateX(-75%) translateY(6px);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-4px);
+  }
+  75% {
+    transform: translateX(-25%) translateY(8px);
+  }
+  100% {
+    transform: translateX(0) translateY(0px);
+  }
+}
+
+@keyframes waveLeftFloat2 {
+  0% {
+    transform: translateX(0) translateY(0px);
+  }
+  30% {
+    transform: translateX(-30%) translateY(5px);
+  }
+  60% {
+    transform: translateX(-60%) translateY(-7px);
+  }
+  90% {
+    transform: translateX(-90%) translateY(3px);
+  }
+  100% {
+    transform: translateX(-100%) translateY(0px);
+  }
+}
+
+@keyframes waveRightFloat2 {
+  0% {
+    transform: translateX(-100%) translateY(0px);
+  }
+  30% {
+    transform: translateX(-70%) translateY(-3px);
+  }
+  60% {
+    transform: translateX(-40%) translateY(7px);
+  }
+  90% {
+    transform: translateX(-10%) translateY(-5px);
+  }
+  100% {
+    transform: translateX(0) translateY(0px);
+  }
 }
