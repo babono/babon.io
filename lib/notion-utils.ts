@@ -2,18 +2,21 @@ import { notion, DATABASES } from "./notion";
 import { Experience, Education, Project, BlogPost } from "../types";
 
 // Helper function to extract text from Notion rich text
-function extractTextFromRichText(richText: any[]): string {
-  return richText?.map(item => item.plain_text).join("") || "";
+function extractTextFromRichText(richText: unknown): string {
+  if (!Array.isArray(richText)) return "";
+  return richText.map((item: { plain_text?: string }) => item.plain_text || "").join("");
 }
 
 // Helper function to extract multi-select values
-function extractMultiSelect(multiSelect: any[]): string[] {
-  return multiSelect?.map(item => item.name) || [];
+function extractMultiSelect(multiSelect: unknown): string[] {
+  if (!Array.isArray(multiSelect)) return [];
+  return multiSelect.map((item: { name?: string }) => item.name || "");
 }
 
 // Helper function to extract date
-function extractDate(dateProperty: any): string {
-  return dateProperty?.start || "";
+function extractDate(dateProperty: unknown): string {
+  if (!dateProperty || typeof dateProperty !== 'object') return "";
+  return (dateProperty as { start?: string }).start || "";
 }
 
 export async function getExperiences(): Promise<Experience[]> {
@@ -30,16 +33,19 @@ export async function getExperiences(): Promise<Experience[]> {
       ],
     });
 
-    return response.results.map((page: any) => ({
-      id: page.id,
-      title: extractTextFromRichText(page.properties["Job Title"]?.title),
-      company: extractTextFromRichText(page.properties["Company"]?.rich_text),
-      location: extractTextFromRichText(page.properties["Location"]?.rich_text),
-      startDate: extractDate(page.properties["Start Date"]?.date),
-      endDate: page.properties["End Date"]?.date?.start || null,
-      description: extractTextFromRichText(page.properties["Description"]?.rich_text).split("\n"),
-      technologies: extractMultiSelect(page.properties["Technologies"]?.multi_select),
-    }));
+    return response.results.map((page) => {
+      const pageData = page as { id: string; properties: Record<string, unknown> };
+      return {
+        id: pageData.id,
+        title: extractTextFromRichText((pageData.properties["Job Title"] as { title?: unknown })?.title),
+        company: extractTextFromRichText((pageData.properties["Company"] as { rich_text?: unknown })?.rich_text),
+        location: extractTextFromRichText((pageData.properties["Location"] as { rich_text?: unknown })?.rich_text),
+        startDate: extractDate((pageData.properties["Start Date"] as { date?: unknown })?.date),
+        endDate: ((pageData.properties["End Date"] as { date?: { start?: string } })?.date?.start) || null,
+        description: extractTextFromRichText((pageData.properties["Description"] as { rich_text?: unknown })?.rich_text).split("\n"),
+        technologies: extractMultiSelect((pageData.properties["Technologies"] as { multi_select?: unknown })?.multi_select),
+      };
+    });
   } catch (error) {
     console.error("Error fetching experiences:", error);
     return [];
@@ -60,16 +66,19 @@ export async function getEducation(): Promise<Education[]> {
       ],
     });
 
-    return response.results.map((page: any) => ({
-      id: page.id,
-      institution: extractTextFromRichText(page.properties["Institution"]?.title),
-      degree: extractTextFromRichText(page.properties["Degree"]?.rich_text),
-      field: extractTextFromRichText(page.properties["Field"]?.rich_text),
-      startDate: extractDate(page.properties["Start Date"]?.date),
-      endDate: extractDate(page.properties["End Date"]?.date),
-      gpa: extractTextFromRichText(page.properties["GPA"]?.rich_text),
-      description: extractTextFromRichText(page.properties["Description"]?.rich_text),
-    }));
+    return response.results.map((page) => {
+      const pageData = page as { id: string; properties: Record<string, unknown> };
+      return {
+        id: pageData.id,
+        institution: extractTextFromRichText((pageData.properties["Institution"] as { title?: unknown })?.title),
+        degree: extractTextFromRichText((pageData.properties["Degree"] as { rich_text?: unknown })?.rich_text),
+        field: extractTextFromRichText((pageData.properties["Field"] as { rich_text?: unknown })?.rich_text),
+        startDate: extractDate((pageData.properties["Start Date"] as { date?: unknown })?.date),
+        endDate: extractDate((pageData.properties["End Date"] as { date?: unknown })?.date),
+        gpa: extractTextFromRichText((pageData.properties["GPA"] as { rich_text?: unknown })?.rich_text),
+        description: extractTextFromRichText((pageData.properties["Description"] as { rich_text?: unknown })?.rich_text),
+      };
+    });
   } catch (error) {
     console.error("Error fetching education:", error);
     return [];
@@ -90,18 +99,21 @@ export async function getProjects(): Promise<Project[]> {
       ],
     });
 
-    return response.results.map((page: any) => ({
-      id: page.id,
-      title: extractTextFromRichText(page.properties["Name"]?.title),
-      description: extractTextFromRichText(page.properties["Description"]?.rich_text),
-      technologies: extractMultiSelect(page.properties["Technologies"]?.multi_select),
-      githubUrl: page.properties["GitHub URL"]?.url || undefined,
-      liveUrl: page.properties["Live URL"]?.url || undefined,
-      imageUrl: page.properties["Image"]?.files?.[0]?.external?.url || undefined,
-      featured: page.properties["Featured"]?.checkbox || false,
-      startDate: extractDate(page.properties["Start Date"]?.date),
-      endDate: extractDate(page.properties["End Date"]?.date) || undefined,
-    }));
+    return response.results.map((page) => {
+      const pageData = page as { id: string; properties: Record<string, unknown> };
+      return {
+        id: pageData.id,
+        title: extractTextFromRichText((pageData.properties["Name"] as { title?: unknown })?.title),
+        description: extractTextFromRichText((pageData.properties["Description"] as { rich_text?: unknown })?.rich_text),
+        technologies: extractMultiSelect((pageData.properties["Technologies"] as { multi_select?: unknown })?.multi_select),
+        githubUrl: ((pageData.properties["GitHub URL"] as { url?: string })?.url) || undefined,
+        liveUrl: ((pageData.properties["Live URL"] as { url?: string })?.url) || undefined,
+        imageUrl: ((pageData.properties["Image"] as { files?: Array<{ external?: { url?: string } }> })?.files?.[0]?.external?.url) || undefined,
+        featured: ((pageData.properties["Featured"] as { checkbox?: boolean })?.checkbox) || false,
+        startDate: extractDate((pageData.properties["Start Date"] as { date?: unknown })?.date),
+        endDate: extractDate((pageData.properties["End Date"] as { date?: unknown })?.date) || undefined,
+      };
+    });
   } catch (error) {
     console.error("Error fetching projects:", error);
     return [];
@@ -128,16 +140,19 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       ],
     });
 
-    return response.results.map((page: any) => ({
-      id: page.id,
-      title: extractTextFromRichText(page.properties["Title"]?.title),
-      description: extractTextFromRichText(page.properties["Description"]?.rich_text),
-      publishDate: extractDate(page.properties["Publish Date"]?.date),
-      slug: extractTextFromRichText(page.properties["Slug"]?.rich_text),
-      tags: extractMultiSelect(page.properties["Tags"]?.multi_select),
-      coverImage: page.properties["Cover Image"]?.files?.[0]?.external?.url || undefined,
-      published: page.properties["Published"]?.checkbox || false,
-    }));
+    return response.results.map((page) => {
+      const pageData = page as { id: string; properties: Record<string, unknown> };
+      return {
+        id: pageData.id,
+        title: extractTextFromRichText((pageData.properties["Title"] as { title?: unknown })?.title),
+        description: extractTextFromRichText((pageData.properties["Description"] as { rich_text?: unknown })?.rich_text),
+        publishDate: extractDate((pageData.properties["Publish Date"] as { date?: unknown })?.date),
+        slug: extractTextFromRichText((pageData.properties["Slug"] as { rich_text?: unknown })?.rich_text),
+        tags: extractMultiSelect((pageData.properties["Tags"] as { multi_select?: unknown })?.multi_select),
+        coverImage: ((pageData.properties["Cover Image"] as { files?: Array<{ external?: { url?: string } }> })?.files?.[0]?.external?.url) || undefined,
+        published: ((pageData.properties["Published"] as { checkbox?: boolean })?.checkbox) || false,
+      };
+    });
   } catch (error) {
     console.error("Error fetching blog posts:", error);
     return [];
@@ -170,7 +185,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
 
     if (response.results.length === 0) return null;
 
-    const page = response.results[0] as any;
+    const page = response.results[0] as { id: string; properties: Record<string, unknown> };
     
     // Fetch the page content
     const pageContent = await notion.blocks.children.list({
@@ -178,16 +193,17 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
     });
 
     // Convert blocks to markdown-like content (simplified)
-    const content = pageContent.results.map((block: any) => {
-      switch (block.type) {
+    const content = pageContent.results.map((block) => {
+      const blockData = block as { type?: string; paragraph?: { rich_text?: unknown }; heading_1?: { rich_text?: unknown }; heading_2?: { rich_text?: unknown }; heading_3?: { rich_text?: unknown } };
+      switch (blockData.type) {
         case 'paragraph':
-          return extractTextFromRichText(block.paragraph?.rich_text);
+          return extractTextFromRichText(blockData.paragraph?.rich_text);
         case 'heading_1':
-          return `# ${extractTextFromRichText(block.heading_1?.rich_text)}`;
+          return `# ${extractTextFromRichText(blockData.heading_1?.rich_text)}`;
         case 'heading_2':
-          return `## ${extractTextFromRichText(block.heading_2?.rich_text)}`;
+          return `## ${extractTextFromRichText(blockData.heading_2?.rich_text)}`;
         case 'heading_3':
-          return `### ${extractTextFromRichText(block.heading_3?.rich_text)}`;
+          return `### ${extractTextFromRichText(blockData.heading_3?.rich_text)}`;
         default:
           return '';
       }
@@ -195,13 +211,13 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
 
     return {
       id: page.id,
-      title: extractTextFromRichText(page.properties["Title"]?.title),
-      description: extractTextFromRichText(page.properties["Description"]?.rich_text),
-      publishDate: extractDate(page.properties["Publish Date"]?.date),
-      slug: extractTextFromRichText(page.properties["Slug"]?.rich_text),
-      tags: extractMultiSelect(page.properties["Tags"]?.multi_select),
-      coverImage: page.properties["Cover Image"]?.files?.[0]?.external?.url || undefined,
-      published: page.properties["Published"]?.checkbox || false,
+      title: extractTextFromRichText((page.properties["Title"] as { title?: unknown })?.title),
+      description: extractTextFromRichText((page.properties["Description"] as { rich_text?: unknown })?.rich_text),
+      publishDate: extractDate((page.properties["Publish Date"] as { date?: unknown })?.date),
+      slug: extractTextFromRichText((page.properties["Slug"] as { rich_text?: unknown })?.rich_text),
+      tags: extractMultiSelect((page.properties["Tags"] as { multi_select?: unknown })?.multi_select),
+      coverImage: ((page.properties["Cover Image"] as { files?: Array<{ external?: { url?: string } }> })?.files?.[0]?.external?.url) || undefined,
+      published: ((page.properties["Published"] as { checkbox?: boolean })?.checkbox) || false,
       content,
     };
   } catch (error) {

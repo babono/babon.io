@@ -2,17 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { getProjects } from "../../lib/notion-utils";
 import { Github, ExternalLink, Calendar } from "lucide-react";
+import { Project } from "../../types";
 
 export default async function Projects() {
   const projects = await getProjects();
-
-  const formatDate = (dateString: string) => {
-    if (!dateString) return '';
-    return new Date(dateString).toLocaleDateString('en-US', {
-      month: 'short',
-      year: 'numeric',
-    });
-  };
 
   return (
     <div className="min-h-screen bg-white py-16">
@@ -91,7 +84,7 @@ export default async function Projects() {
   );
 }
 
-function ProjectCard({ project, featured = false }: { project: any; featured?: boolean }) {
+function ProjectCard({ project, featured = false }: { project: Project; featured?: boolean }) {
   const formatDate = (dateString: string) => {
     if (!dateString) return '';
     return new Date(dateString).toLocaleDateString('en-US', {

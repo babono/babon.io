@@ -21,7 +21,7 @@ export default function Home() {
             </div>
             
             <h1 className="text-4xl sm:text-6xl font-bold mb-6" style={{ color: '#252525' }}>
-              Hi, I'm{" "}
+              Hi, I&apos;m{" "}
               <span style={{ color: '#0182C6' }}>
                 Your Name
               </span>

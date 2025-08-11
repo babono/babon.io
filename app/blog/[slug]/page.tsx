@@ -2,16 +2,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getBlogPost, getBlogPosts } from "../../../lib/notion-utils";
+import { BlogPost } from "../../../types";
 import { Calendar, ArrowLeft } from "lucide-react";
 
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = await getBlogPost(params.slug);
+  const resolvedParams = await params;
+  const post = await getBlogPost(resolvedParams.slug);
 
   if (!post) {
     notFound();
@@ -68,7 +70,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
               {post.tags.length > 0 && (
                 <div className="flex flex-wrap gap-2 mt-6">
-                  {post.tags.map((tag) => (
+                  {post.tags.map((tag: string) => (
                     <span
                       key={tag}
                       className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full"
@@ -113,14 +115,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 export async function generateStaticParams() {
   const posts = await getBlogPosts();
   
-  return posts.map((post) => ({
+  return posts.map((post: BlogPost) => ({
     slug: post.slug,
   }));
 }
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: BlogPostPageProps) {
-  const post = await getBlogPost(params.slug);
+  const resolvedParams = await params;
+  const post = await getBlogPost(resolvedParams.slug);
 
   if (!post) {
     return {
