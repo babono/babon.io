@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getBlogPost, getBlogPosts } from "../../../lib/notion-utils";
-import { BlogPost } from "../../../types";
+import { getPostBySlug, getPosts } from "@/lib/cms";
+import type { BlogPost } from "@/types";
 import { Calendar, ArrowLeft } from "lucide-react";
 
 interface BlogPostPageProps {
@@ -13,7 +13,7 @@ interface BlogPostPageProps {
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const resolvedParams = await params;
-  const post = await getBlogPost(resolvedParams.slug);
+  const post = await getPostBySlug(resolvedParams.slug);
 
   if (!post) {
     notFound();
@@ -82,16 +82,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               )}
             </header>
 
-            <div className="prose prose-lg dark:prose-invert max-w-none">
+            <div className="prose prose-lg dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 leading-relaxed">
               {post.content ? (
-                <div
-                  className="whitespace-pre-wrap text-gray-700 dark:text-gray-300 leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: post.content.replace(/\n/g, '<br>') }}
-                />
+                <pre className="whitespace-pre-wrap">{post.content}</pre>
               ) : (
-                <p className="text-gray-600 dark:text-gray-400 italic">
-                  Content is being loaded from Notion...
-                </p>
+                <p className="italic">Content coming soon.</p>
               )}
             </div>
           </div>
@@ -113,7 +108,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
 // Generate static params for static generation
 export async function generateStaticParams() {
-  const posts = await getBlogPosts();
+  const posts = await getPosts();
   
   return posts.map((post: BlogPost) => ({
     slug: post.slug,
@@ -123,7 +118,7 @@ export async function generateStaticParams() {
 // Generate metadata for SEO
 export async function generateMetadata({ params }: BlogPostPageProps) {
   const resolvedParams = await params;
-  const post = await getBlogPost(resolvedParams.slug);
+  const post = await getPostBySlug(resolvedParams.slug);
 
   if (!post) {
     return {

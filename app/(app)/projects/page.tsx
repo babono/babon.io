@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getProjects } from "../../lib/notion-utils";
+import { getAllProjects } from "@/lib/cms";
 import { Github, ExternalLink, Calendar } from "lucide-react";
-import { Project } from "../../types";
+import type { Project } from "@/types";
 
 export default async function Projects() {
-  const projects = await getProjects();
+  const projects = await getAllProjects();
 
   return (
     <div className="min-h-screen bg-white py-16">

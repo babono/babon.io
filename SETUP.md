@@ -8,7 +8,7 @@
 - [x] Resume page for experience and education
 - [x] Projects page for showcasing work
 - [x] Blog page with individual post pages
-- [x] Notion API integration setup
+- [x] Payload CMS setup
 - [x] TypeScript types defined
 - [x] Responsive design with Tailwind CSS
 - [x] Dark mode support
@@ -16,16 +16,13 @@
 
 ## 🚀 Next Steps (You need to do these)
 
-### 1. Set up Notion Integration
-- [x] Create a Notion integration at https://www.notion.so/my-integrations
-- [x] Copy the integration token
-- [x] Create the four databases (Experience, Education, Projects, Blog)
-- [x] Share each database with your integration
-- [x] Copy the database IDs from the URLs
+### 1. Set up Payload CMS
+- [x] Ensure `.env.local` includes `DATABASE_URI` and `PAYLOAD_SECRET`
+- [x] Start the dev server and create your admin user at `/admin`
+- [x] Verify collections exist: Posts, Projects, Experiences, Education
 
 ### 2. Configure Environment Variables
-- [x] Copy `.env.local.example` to `.env.local`
-- [x] Add your Notion token and database IDs
+- [x] Create `.env.local` with your database URI and secret
 
 ### 3. Customize Your Content
 - [x] Replace "Your Name" in `app/page.tsx` with your actual name
@@ -38,15 +35,15 @@
 - [x] **NEW**: Removed dark mode support
 - [x] **NEW**: Applied custom color palette (#0182C6, #252525, #ED4D2D, #FED900)
 
-### 4. Add Your Content to Notion
-- [ ] Add your work experience to the Experience database
-- [ ] Add your education to the Education database  
-- [ ] Add your projects to the Projects database
-- [ ] Add blog posts to the Blog database (if you want to blog)
+### 4. Add Your Content to Payload
+- [ ] Add your work experience to the Experiences collection
+- [ ] Add your education to the Education collection
+- [ ] Add your projects to the Projects collection
+- [ ] Add blog posts to the Posts collection
 
 ### 5. Test Everything
 - [ ] Test all pages work correctly
-- [ ] Test Notion integration is pulling data
+- [ ] Test Payload content is being displayed
 - [ ] Test responsive design on mobile
 - [ ] Test dark mode toggle
 
@@ -66,7 +63,7 @@
 - [ ] Add PWA features
 
 ## 📝 Notes
-- Your dev server is running at http://localhost:3001
-- Without Notion setup, the pages will show "connect your database" messages
-- All pages are responsive and support dark mode
-- Blog posts support markdown-like content from Notion
+- Your dev server is running at http://localhost:3000
+- Without Payload content, the pages will display setup guidance
+- All pages are responsive
+- Blog posts use Payload rich text content (currently rendered as JSON text)

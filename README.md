@@ -1,13 +1,13 @@
 # Portfolio Website
 
-A modern portfolio website built with Next.js 15 and Tailwind CSS, featuring dynamic content management through Notion API integration.
+A modern portfolio website built with Next.js 15 and Tailwind CSS, featuring dynamic content management through Payload CMS (backed by Supabase Postgres).
 
 ## Features
 
 - **🏠 Home Page**: Personal introduction with social media links
-- **📄 Resume Page**: Dynamic experience and education from Notion
+- **📄 Resume Page**: Dynamic experience and education from Payload
 - **🚀 Projects Page**: Showcase your work with featured projects
-- **📝 Blog Page**: Dynamic blog posts from Notion with individual post pages
+- **📝 Blog Page**: Dynamic blog posts from Payload with individual post pages
 - **🌙 Dark Mode**: Automatic dark mode support
 - **📱 Responsive Design**: Mobile-first responsive design
 - **⚡ Performance**: Built with Next.js 15 App Router for optimal performance
@@ -16,7 +16,7 @@ A modern portfolio website built with Next.js 15 and Tailwind CSS, featuring dyn
 
 - **Framework**: Next.js 15 with App Router
 - **Styling**: Tailwind CSS v4
-- **Content Management**: Notion API
+- **Content Management**: Payload CMS + Postgres
 - **Icons**: Lucide React
 - **Language**: TypeScript
 - **Deployment**: Vercel (recommended)
@@ -27,7 +27,7 @@ A modern portfolio website built with Next.js 15 and Tailwind CSS, featuring dyn
 
 - Node.js 18+ 
 - npm or yarn
-- A Notion account
+- A configured Payload CMS (visit `/admin` after starting dev)
 
 ### 1. Clone and Install
 
@@ -37,76 +37,23 @@ cd babon.io
 npm install
 ```
 
-### 2. Set up Notion Integration
+### 2. Set up Payload CMS
 
-1. Go to [Notion Integrations](https://www.notion.so/my-integrations)
-2. Click "New integration"
-3. Give it a name and select your workspace
-4. Copy the "Internal Integration Token"
+1. Ensure your `.env.local` includes `DATABASE_URI` (Supabase Postgres) and `PAYLOAD_SECRET`
+2. Run `npm run dev` and visit `/admin` to create your first user and content
 
-### 3. Create Notion Databases
+### 3. Collections
 
-Create the following databases in Notion and share them with your integration:
-
-#### Experience Database
-Properties:
-- `Job Title` (Title)
-- `Company` (Rich Text)
-- `Location` (Rich Text)
-- `Start Date` (Date)
-- `End Date` (Date)
-- `Description` (Rich Text)
-- `Technologies` (Multi-select)
-
-#### Education Database
-Properties:
-- `Institution` (Title)
-- `Degree` (Rich Text)
-- `Field` (Rich Text)
-- `Start Date` (Date)
-- `End Date` (Date)
-- `GPA` (Rich Text)
-- `Description` (Rich Text)
-
-#### Projects Database
-Properties:
-- `Name` (Title)
-- `Description` (Rich Text)
-- `Technologies` (Multi-select)
-- `GitHub URL` (URL)
-- `Live URL` (URL)
-- `Featured` (Checkbox)
-- `Start Date` (Date)
-- `End Date` (Date)
-- `Image` (Files)
-
-#### Blog Database
-Properties:
-- `Title` (Title)
-- `Description` (Rich Text)
-- `Slug` (Rich Text)
-- `Tags` (Multi-select)
-- `Publish Date` (Date)
-- `Published` (Checkbox)
-- `Cover Image` (Files)
+This repo includes Payload collections for: `posts`, `projects`, `experiences`, and `education`. Manage content via `/admin`.
 
 ### 4. Configure Environment Variables
 
-1. Copy `.env.local.example` to `.env.local`
-2. Fill in your Notion integration token and database IDs:
+Create `.env.local` with:
 
 ```env
-NOTION_TOKEN=your_notion_integration_token_here
-NOTION_EXPERIENCE_DB_ID=your_experience_database_id_here
-NOTION_EDUCATION_DB_ID=your_education_database_id_here
-NOTION_PROJECTS_DB_ID=your_projects_database_id_here
-NOTION_BLOG_DB_ID=your_blog_database_id_here
+DATABASE_URI=postgres://...
+PAYLOAD_SECRET=your-secret
 ```
-
-To get database IDs:
-1. Open your database in Notion
-2. Copy the URL
-3. The database ID is the 32-character string before the `?v=`
 
 ### 5. Customize Your Content
 
@@ -153,7 +100,7 @@ The project uses Tailwind CSS v4. You can customize:
 3. Update the navigation in `components/Navigation.tsx`
 
 ### Database Schema Changes
-If you modify the Notion database properties, update the corresponding interfaces in `types/index.ts` and the parsing functions in `lib/notion-utils.ts`.
+If you modify collection fields, update `collections/*.ts` as needed.
 
 ## Project Structure
 

@@ -1,10 +1,10 @@
-import { getExperiences, getEducation } from "../../lib/notion-utils";
+import { getAllExperiences, getAllEducation } from "@/lib/cms";
 import { Calendar, MapPin } from "lucide-react";
 
 export default async function Resume() {
   const [experiences, education] = await Promise.all([
-    getExperiences(),
-    getEducation(),
+    getAllExperiences(),
+    getAllEducation(),
   ]);
 
   const formatDate = (dateString: string) => {
@@ -39,7 +39,7 @@ export default async function Resume() {
           {experiences.length === 0 ? (
             <div className="text-center py-8">
               <p className="text-gray-600 dark:text-gray-300">
-                Connect your Notion database to display your work experience.
+                Add your experience entries in Payload to display them here.
               </p>
             </div>
           ) : (
@@ -111,7 +111,7 @@ export default async function Resume() {
           {education.length === 0 ? (
             <div className="text-center py-8">
               <p className="text-gray-600 dark:text-gray-300">
-                Connect your Notion database to display your education.
+                Add your education entries in Payload to display them here.
               </p>
             </div>
           ) : (
