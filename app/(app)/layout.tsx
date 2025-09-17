@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
-import Navigation from "../components/Navigation";
+import Navigation from "./components/Navigation";
 
 const openSans = Open_Sans({
   variable: "--font-open-sans",
